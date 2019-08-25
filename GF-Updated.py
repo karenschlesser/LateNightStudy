@@ -23,11 +23,14 @@ with open(sys.argv[1], 'r') as fh, open('gfoutputfile1.csv', 'w') as gfoutputfil
 
   for row in reader:
     #print (row['Created at'])
-    dt = datetime.datetime.strptime(row['Created at'],'%m/%d/%Y %I:%M %p')
+    try:
+      dt = datetime.datetime.strptime(row['Created at'],'%m/%d/%Y %I:%M %p')
+    except ValueError as e:
+      dt = datetime.datetime.strptime(row['Created at'],'%m/%d/%y %H:%M')
     #print (dt)
     dh = dt.strftime('%m/%d/%Y %H')
     gflist.append(dh)  
-    classlist.append(row['Class'])
+    classlist.append(row['Classification'])
     majors.append(row['Majors'])
 
    #print(gflist)
